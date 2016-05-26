@@ -7,7 +7,7 @@ app.config(function($routeProvider) {
       templateUrl:'src/view/home.html'
     })
     .when('/output', {
-      controller:'coutputController as outputCtrl',
+      controller:'outputController as outputCtrl',
       templateUrl:'src/view/output.html'
     })
     .otherwise({
@@ -15,7 +15,7 @@ app.config(function($routeProvider) {
     });
 })
 
-app.controller('homeController', function() {
+app.controller('homeController', function($location, naneenservice) {
   var home = this;
   home.text;
   home.CharacterLength = 0;
@@ -24,7 +24,10 @@ app.controller('homeController', function() {
   home.FontStyle={'color':'red'};
 
   home.addParagraph = function(){
-    //
+    console.log("addParagraph");
+    // $location.path('/output');
+    naneenservice.text = home.text;
+    console.log(naneenservice.text);
   }
 
   home.UpdateLengths = function($event){
@@ -67,6 +70,12 @@ app.controller('homeController', function() {
   }
 });
 
-app.controller('outputController', function() {
-
+app.controller('outputController', function(naneenservice) {
+  var output = this;
+  output.text = naneenservice.text;
 });
+
+app.service('naneenservice', function(){
+  var self = this;
+  self.text = ''
+})

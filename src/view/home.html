@@ -7,10 +7,7 @@
 <div class="jumbotron text-center">
   <img src="src/image/logo.png" class="img-responsive" id="logo">
   <h1>PIGGYPEDIA</h1><br><br>
-  <form ng-submit="homeCtrl.addParagraph()" method="post">
     <textarea id="inputbox" type="text" ng-model="homeCtrl.text" ng-change="homeCtrl.UpdateLengths()" ng-trim="false" maxlength="{{homeCtrl.maxlength}}" placeholder="Input text here"></textarea>
     <p ng-model="homeCtrl.WordsLength"> You have entered <font ng-style="homeCtrl.FontStyle">{{homeCtrl.WordsLength}}</font>/200 words </p>
-
-    <button class="btn btn-primary btn-lg" type="button">Start Wiki Inspect</button>
-  </form>
+    <button class="btn btn-primary btn-lg" ng-click="homeCtrl.addParagraph()" type="submit">Start Wiki Inspect</button>
 </div>

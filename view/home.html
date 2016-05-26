@@ -7,10 +7,10 @@
 <div class="jumbotron text-center">
   <h1>PIGGYPEDIA</h1>
   <h5>Input paragraph</h5>
-  <form ng-submit="homeCtrl.addParagraph()" method="post">
+  <form method="post">
     <textarea id="inputbox" type="text" ng-model="homeCtrl.paragraph" ng-trim="false" maxlength="{{homeCtrl.maxlength}}" placeholder="Input paragraph here"></textarea>
     <p>word left : <span id="wordleft">{{homeCtrl.maxlength - homeCtrl.paragraph.length}}</span></p>
     <p>{{homeCtrl.paragraph.length}}</p>
-    <button class="btn btn-large btn-primary" type="button">Start wiki inspect</button>
+    <button class="btn btn-large btn-primary" type="submit" ng-click="homeCtrl.addParagraph()">Start wiki inspect</button>
   </form>
 </div>
