@@ -19,24 +19,31 @@ app.controller('homeController', function($location, myservice, $http) {
   var home = this;
   home.text;
   home.CharacterLength = 0;
-  home.WORDS_MAXIMUM = 200; // changeable
+  home.WORDS_MAXIMUM = 200;
   home.WordsLength = 0;
   home.FontStyle = {'color':'red'};
   home.buttonText = "Start Wiki Inspect";
   home.isDisabled = false;
 
   home.addParagraph = function(){
+    // var namelist = "Anne,Ben,Cindy,Diane,Era ";
+    home.sentences = home.text.split('/n');
+    console.log(home.nameArray);
+    // home.splitText = home.text.split("\n");
+    // console.log(home.splitText);
     home.postCourses();
     home.isDisabled = true;
     home.buttonText = "Loading...";
   }
 
+
+
   home.postCourses = function() {
-    var body = { "message" : home.text };
+    var body = { "message" : home.sentences };
     console.log(body);
     $http.post('http://52.77.244.73:3000', angular.toJson(body)
     ).success(function(data, status, headers, config) {
-      console.log(data);
+      console.log(data.message);
       home.isDisabled = false;
       home.buttonText = "Start Wiki Inspect";
     }).
@@ -92,20 +99,5 @@ app.controller('outputController', function(myservice) {
 
 app.service('myservice', function(){
   var self = this;
-  // self.text = '';
-  // self.isDisabled = false;
-  //
-  // self.postCourses = function() {
-  //   var body = { "message" : self.text };
-  //   console.log(body);
-  //   $http.post('http://52.77.244.73:3000', angular.toJson(body)
-  //   ).success(function(data, status, headers, config) {
-  //     console.log(data);
-  //     self.isDisabled = false;
-  //     console.log(self.isDisabled);
-  //   }).
-  //   error(function(data, status, headers, config) {
-  //     alert(data.body);
-  //   });
-  // }
+
 })
