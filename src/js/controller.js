@@ -16,21 +16,57 @@ app.config(function($routeProvider) {
 })
 
 app.controller('homeController', function() {
-  var todoList = this;
-  todoList.maxlength = 200;
-  todoList.paragraph;
+  var home = this;
+  home.text;
+  home.CharacterLength = 0;
+  home.WORDS_MAXIMUM = 200; // changeable
+  home.WordsLength=0;
+  home.FontStyle={'color':'red'};
 
-  todoList.addParagraph = function(){
+  home.addParagraph = function(){
     //
+  }
+
+  home.UpdateLengths = function($event){
+    home.CharacterLength = home.text.length;
+    home.WordsLength=0;
+    if(home.text.length == 1 && home.text[0]!=' '){
+      home.WordsLength = 1;
+    }
+
+    for( var i=1; i< home.text.length; i++){
+      if( home.IsAlphabet(home.text[i])  && !home.IsAlphabet(home.text[i-1])){
+        home.WordsLength++;
+        if(home.WordsLength == home.WORDS_MAXIMUM + 1) {
+            home.WordsLength--;
+            home.text = home.text.substring(0, i);
+            return;
+        }
+      }else if (home.IsAlphabet(home.text[i]) && home.IsAlphabet(home.text[i-1]) ){
+        if(home.WordsLength==0){
+            home.WordsLength=1;
+        }
+      }else if(!home.IsAlphabet(home.text[i]) && !home.IsAlphabet(home.text[i-1])){
+        continue;
+      }else if(!home.IsAlphabet(home.text[i]) && home.IsAlphabet(home.text[i-1]))  {
+        continue;
+      }
+    }
+  }
+
+  home.IsAlphabet = function(character)  {
+    var numeric_char = character.charCodeAt(character);
+
+    if(numeric_char>64 && numeric_char<91) {
+        return true;
+    }
+    if(numeric_char>96 && numeric_char<123) {
+        return true;
+    }
+    return false;
   }
 });
 
 app.controller('outputController', function() {
-  var todoList = this;
-  todoList.maxlength = 200;
-  todoList.paragraph;
 
-  todoList.addParagraph = function(){
-    //
-  }
 });
