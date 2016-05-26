@@ -3,6 +3,17 @@ body {
   /*background-color: #00F2FF;*/
 }
 
+#logo {
+  width: 23%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto
+}
+
+.jumbotron h1 {
+  font-size: 55px;
+}
+
 .jumbotron{
   position: absolute;
   height: 100%;
@@ -16,4 +27,8 @@ body {
 
 #wordleft {
   color: darkred;
+}
+
+textarea {
+  font-size: 20px;
 }
