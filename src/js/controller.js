@@ -24,9 +24,7 @@ app.controller('homeController', function($location, myservice) {
   home.FontStyle={'color':'red'};
 
   home.addParagraph = function(){
-    console.log("addParagraph");
     myservice.text = home.text;
-    console.log(myservice.text);
     myservice.postCourses();
   }
 
