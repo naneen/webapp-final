@@ -15,7 +15,7 @@ app.config(function($routeProvider) {
     });
 })
 
-app.controller('homeController', function($location, naneenservice) {
+app.controller('homeController', function($location, myservice) {
   var home = this;
   home.text;
   home.CharacterLength = 0;
@@ -25,9 +25,9 @@ app.controller('homeController', function($location, naneenservice) {
 
   home.addParagraph = function(){
     console.log("addParagraph");
-    // $location.path('/output');
-    naneenservice.text = home.text;
-    console.log(naneenservice.text);
+    myservice.text = home.text;
+    console.log(myservice.text);
+    myservice.postCourses();
   }
 
   home.UpdateLengths = function($event){
@@ -70,12 +70,24 @@ app.controller('homeController', function($location, naneenservice) {
   }
 });
 
-app.controller('outputController', function(naneenservice) {
+app.controller('outputController', function(myservice) {
   var output = this;
-  output.text = naneenservice.text;
+  output.text = myservice.text;
 });
 
-app.service('naneenservice', function(){
+app.service('myservice', function($http){
   var self = this;
-  self.text = ''
+  self.text = '';
+
+  self.postCourses = function() {
+    var body = { "message" : self.text };
+    console.log(body);
+    $http.post('http://52.77.244.73:3000', angular.toJson(body)
+    ).success(function(data, status, headers, config) {
+      // alert('success2')
+    }).
+    error(function(data, status, headers, config) {
+      alert(data.body);
+    });
+  }
 })
