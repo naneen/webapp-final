@@ -26,22 +26,16 @@ app.controller('homeController', function($location, myservice, $http) {
   home.isDisabled = false;
 
   home.addParagraph = function(){
-    // var namelist = "Anne,Ben,Cindy,Diane,Era ";
     home.sentences = home.text.split('/n');
-    console.log(home.nameArray);
-    // home.splitText = home.text.split("\n");
-    // console.log(home.splitText);
     home.postCourses();
     home.isDisabled = true;
     home.buttonText = "Loading...";
   }
 
-
-
   home.postCourses = function() {
     var body = { "message" : home.sentences };
     console.log(body);
-    $http.post('http://52.77.244.73:3000', angular.toJson(body)
+    $http.post('http://52.77.244.73:3000/api', angular.toJson(body)
     ).success(function(data, status, headers, config) {
       console.log(data.message);
       home.isDisabled = false;
