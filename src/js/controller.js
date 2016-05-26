@@ -15,17 +15,34 @@ app.config(function($routeProvider) {
     });
 })
 
-app.controller('homeController', function($location, myservice) {
+app.controller('homeController', function($location, myservice, $http) {
   var home = this;
   home.text;
   home.CharacterLength = 0;
   home.WORDS_MAXIMUM = 200; // changeable
-  home.WordsLength=0;
-  home.FontStyle={'color':'red'};
+  home.WordsLength = 0;
+  home.FontStyle = {'color':'red'};
+  home.buttonText = "Start Wiki Inspect";
+  home.isDisabled = false;
 
   home.addParagraph = function(){
-    myservice.text = home.text;
-    myservice.postCourses();
+    home.postCourses();
+    home.isDisabled = true;
+    home.buttonText = "Loading...";
+  }
+
+  home.postCourses = function() {
+    var body = { "message" : home.text };
+    console.log(body);
+    $http.post('http://52.77.244.73:3000', angular.toJson(body)
+    ).success(function(data, status, headers, config) {
+      console.log(data);
+      home.isDisabled = false;
+      home.buttonText = "Start Wiki Inspect";
+    }).
+    error(function(data, status, headers, config) {
+      alert(data.body);
+    });
   }
 
   home.UpdateLengths = function($event){
@@ -73,19 +90,22 @@ app.controller('outputController', function(myservice) {
   output.text = myservice.text;
 });
 
-app.service('myservice', function($http){
+app.service('myservice', function(){
   var self = this;
-  self.text = '';
-
-  self.postCourses = function() {
-    var body = { "message" : self.text };
-    console.log(body);
-    $http.post('http://52.77.244.73:3000', angular.toJson(body)
-    ).success(function(data, status, headers, config) {
-      // alert('success2')
-    }).
-    error(function(data, status, headers, config) {
-      alert(data.body);
-    });
-  }
+  // self.text = '';
+  // self.isDisabled = false;
+  //
+  // self.postCourses = function() {
+  //   var body = { "message" : self.text };
+  //   console.log(body);
+  //   $http.post('http://52.77.244.73:3000', angular.toJson(body)
+  //   ).success(function(data, status, headers, config) {
+  //     console.log(data);
+  //     self.isDisabled = false;
+  //     console.log(self.isDisabled);
+  //   }).
+  //   error(function(data, status, headers, config) {
+  //     alert(data.body);
+  //   });
+  // }
 })

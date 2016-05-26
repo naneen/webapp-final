@@ -9,5 +9,5 @@
   <h1>PIGGYPEDIA</h1><br><br>
     <textarea id="inputbox" type="text" ng-model="homeCtrl.text" ng-change="homeCtrl.UpdateLengths()" ng-trim="false" maxlength="{{homeCtrl.maxlength}}" placeholder="Input text here"></textarea>
     <p ng-model="homeCtrl.WordsLength"> You have entered <font ng-style="homeCtrl.FontStyle">{{homeCtrl.WordsLength}}</font>/200 words </p>
-    <button class="btn btn-primary btn-lg" ng-click="homeCtrl.addParagraph()" type="submit">Start Wiki Inspect</button>
+    <button class="btn btn-primary btn-lg" ng-click="homeCtrl.addParagraph()" type="submit" ng-disabled="homeCtrl.isDisabled">{{homeCtrl.buttonText}}</button>
 </div>
